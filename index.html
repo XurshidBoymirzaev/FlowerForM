@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Особенный цветок для тебя</title>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+
+        :root {
+            /* --- НОВАЯ ЦВЕТОВАЯ ПАЛИТРА "КОСМИЧЕСКАЯ ОРХИДЕЯ" --- */
+            --bg-color-dark: #090a0f; /* Глубокий черный космос */
+            --bg-color-light: #1b2735; /* Туманность индиго */
+            --text-color: #FFF7E0; /* Теплый звездный свет */
+            --glow-color: rgba(255, 220, 130, 0.5); /* Мягкое золотое свечение */
+            
+            /* Цвета для самого цветка */
+            --petal-light: #FF75D5; /* Яркий розовый неон */
+            --petal-medium: #E73FBC; /* Насыщенная маджента */
+            --petal-dark: #A22A99; /* Глубокий фиолетовый */
+            --center-glow: #FFFFFF; /* Яркий белый центр */
+
+            /* Цвет для стебля */
+            --stem-color: #37B5A3; /* Волшебный бирюзовый */
+        }
+
+        body {
+            height: 100vh;
+            /* Более глубокий и интересный фон ночного неба */
+            background: radial-gradient(ellipse at bottom, var(--bg-color-light) 0%, var(--bg-color-dark) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Caveat', cursive;
+        }
+
+        .start-screen {
+            cursor: pointer;
+            text-align: center;
+            color: var(--text-color);
+            z-index: 1000;
+        }
+        .start-screen h1 { font-size: 3rem; text-shadow: 0 0 15px var(--glow-color); }
+        .start-screen p { font-size: 1.5rem; }
+
+        .scene {
+            display: none;
+            width: 90vw;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .flower-svg {
+            width: 100%;
+            height: auto;
+        }
+        
+        .flower-svg .st,
+        .flower-svg .l-1, .flower-svg .l-2, .flower-svg .l-3, .flower-svg .l-4 {
+            opacity: 0;
+            transform-origin: center bottom;
+            transform: scale(0.5);
+        }
+
+        body.run .flower-svg .st,
+        body.run .flower-svg .l-1,
+        body.run .flower-svg .l-2,
+        body.run .flower-svg .l-3,
+        body.run .flower-svg .l-4 {
+            animation: bloom 2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        body.run .flower-svg .st  { animation-delay: 0.5s; }
+        body.run .flower-svg .l-1 { animation-delay: 1.5s; }
+        body.run .flower-svg .l-2 { animation-delay: 1.9s; }
+        body.run .flower-svg .l-3 { animation-delay: 2.3s; }
+        body.run .flower-svg .l-4 { animation-delay: 2.7s; }
+
+        @keyframes bloom {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .final-message {
+            color: var(--text-color);
+            font-size: 2.8rem;
+            text-shadow: 0 0 10px var(--glow-color);
+            opacity: 0;
+            margin-top: -20px;
+        }
+        body.run .final-message {
+            animation: fade-in-text 3s ease-in-out 3.5s forwards;
+        }
+        
+        @keyframes fade-in-text {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="start-screen" id="startScreen">
+        <h1>Нажми</h1>
+        <p></p>
+    </div>
+
+    <div class="scene" id="mainScene" style="display: none;">
+        <svg class="flower-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                    <stop offset="0%" style="stop-color:#ffcad4; stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#f4acb7; stop-opacity:1" />
+                </radialGradient>
+                <radialGradient id="grad2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                    <stop offset="0%" style="stop-color:#f4acb7; stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#d88392; stop-opacity:1" />
+                </radialGradient>
+                 <radialGradient id="grad-center" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                    <stop offset="0%" style="stop-color:#fff0f3; stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#ffcad4; stop-opacity:1" />
+                </radialGradient>
+            </defs>
+
+            <g class="st" transform="translate(0, 50)">
+                <path d="M 200 150 C 200 250, 200 350, 200 350" stroke="#8cb369" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M 200 250 C 150 240, 130 280, 130 280" stroke="#8cb369" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M 200 280 C 250 270, 270 310, 270 310" stroke="#8cb369" stroke-width="4" fill="none" stroke-linecap="round"/>
+            </g>
+            
+            <g class="l-1" transform="translate(0, 50)">
+                <path d="M 200 150 C 130 150, 140 70, 170 50" fill="url(#grad2)"/>
+                <path d="M 200 150 C 270 150, 260 70, 230 50" fill="url(#grad2)"/>
+                <path d="M 200 150 C 150 220, 250 220, 200 150" fill="url(#grad2)"/>
+            </g>
+            
+            <g class="l-2" transform="translate(0, 50)">
+                <path d="M 200 150 C 130 140, 120 90, 160 90" fill="url(#grad1)"/>
+                <path d="M 200 150 C 270 140, 280 90, 240 90" fill="url(#grad1)"/>
+                <path d="M 200 150 C 160 190, 240 190, 200 150" fill="url(#grad1)"/>
+            </g>
+
+            <g class="l-3" transform="translate(0, 50)">
+                 <path d="M 200 150 C 170 130, 160 100, 180 100" fill="url(#grad2)"/>
+                 <path d="M 200 150 C 230 130, 240 100, 220 100" fill="url(#grad2)"/>
+            </g>
+
+            <g class="l-4" transform="translate(0, 50)">
+                <circle cx="200" cy="145" r="15" fill="url(#grad-center)"/>
+            </g>
+        </svg>
+
+        <h1 class="final-message">Этот цветок — для тебя...</h1>
+    </div>
+    
+    <audio id="background-music" loop>
+        <source src="https://assets.codepen.io/217233/magical_twinkle.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // JavaScript остается без изменений, он работал корректно
+        const startScreen = document.getElementById('startScreen');
+        const mainScene = document.getElementById('mainScene');
+        const audio = document.getElementById('background-music');
+        startScreen.addEventListener('click', () => {
+            startScreen.style.display = 'none';
+            mainScene.style.display = 'block'; // Меняем на block для корректного отображения
+            document.body.classList.add('run');
+            audio.volume = 0.3;
+            audio.play().catch(e => console.error("Audio playback failed:", e));
+        });
+    </script>
+</body>
+</html>
